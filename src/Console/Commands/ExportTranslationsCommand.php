@@ -9,7 +9,8 @@ class ExportTranslationsCommand extends Command
     protected $signature = 'i18n:export';
     protected $description = 'Export translations to JSON';
 
-    public function handle() {
+    public function handle(): void
+    {
         $locales = config('i18n-exporter.locales');
 
         foreach ($locales as $locale) {

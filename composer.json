@@ -18,5 +18,12 @@
             "email": "hello@syntafin.dev"
         }
     ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Syntafin\\LaravelI18nExporter\\i18nExporterServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "stable"
 }

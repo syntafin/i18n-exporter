@@ -2,7 +2,9 @@
 
 namespace Syntafin\LaravelI18nExporter\Console\Commands;
 
-class ExportTranslationsCommand
+use Illuminate\Console\Command;
+
+class ExportTranslationsCommand extends Command
 {
     protected $signature = 'i18n:export';
     protected $description = 'Export translations to JSON';

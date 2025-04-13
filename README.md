@@ -15,10 +15,9 @@ A simple Laravel package to export your localization files into a JSON. Useful f
 
 ## 🚀 Features
 
-- Export Laravel translation files to JSON, CSV, Excel, or custom formats
-- Artisan command integration
-- Easy to customize and extend
-- PSR-4 autoloaded, clean structure
+* Export your Laravel PHP Translation files into a single JSON
+* Easy to integrate with your current build and CI system
+* Optional: Run with ``artisan:optimize``
 
 ---
 
@@ -29,7 +28,7 @@ A simple Laravel package to export your localization files into a JSON. Useful f
 If you’re using this locally via path repository:
 
 ```bash
-composer require syntafin/laravel-i18n-exporter:*
+composer require syntafin/laravel-i18n-exporter
 ```
 
 ---
@@ -45,10 +44,13 @@ php artisan vendor:publish --tag=i18n-exporter-config
 ## 🛠 Usage
 Run the export command via Artisan:
 ```bash
+# Generate JSON files
 php artisan i18n:export
+# Delete all JSON files
+php artisan i18n:clear
 ```
 
-This will scan your Laravel lang directory and export all translation keys into the specified format (default: JSON). 
+This will scan your Laravel lang directory and export all translation keys into a singe JSON. 
 
 📝 You can customize the output path, file type, and other options via configuration or CLI options (coming soon).
 

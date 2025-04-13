@@ -1,0 +1,21 @@
+{
+    "name": "syntafin/laravel-i18n-exporter",
+    "description": "This package provides a command to easily convert the Laravel language files into JSON to be used by your frontend application.",
+    "type": "library",
+    "require": {
+        "laravel/framework": "^11",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Syntafin\\LaravelI18nExporter\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Syntafin",
+            "email": "hello@syntafin.dev"
+        }
+    ],
+    "minimum-stability": "stable"
+}

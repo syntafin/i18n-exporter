@@ -15,7 +15,7 @@ class ExportTranslationsCommand extends Command
         $frameworkType = config('i18n-exporter.type');
 
         foreach ($locales as $locale) {
-            $path = config('i18n-exporter.path');
+            $path = config('i18n-exporter.path')."/$locale";
             $output = [];
 
             $files = glob($path . "/*.php");

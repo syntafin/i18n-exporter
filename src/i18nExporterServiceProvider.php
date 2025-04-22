@@ -10,7 +10,9 @@ class i18nExporterServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/i18n-exporter.php', 'i18n-exporter');
+        $this->publishes([
+            __DIR__ . '/../config/i18n-exporter.php' => config_path('i18n-exporter.php'),
+        ], 'i18n-exporter-config');
 
         if ($this->app->runningInConsole()) {
             $this->commands([

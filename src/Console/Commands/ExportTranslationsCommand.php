@@ -12,39 +12,80 @@ class ExportTranslationsCommand extends Command
     public function handle(): void
     {
         $locales = config('i18n-exporter.locales');
+        $frameworkType = config('i18n-exporter.type');
 
         foreach ($locales as $locale) {
-            $path = base_path("lang/$locale");
-            $output = [];
+            $path = config('i18n-exporter.path');
+            $output = config('i18n-exporter.output');
 
-            $files = glob($path . '/*.php');
+            $files = glob($path . "/*.php");
 
             foreach ($files as $file) {
                 $filename = basename($file, '.php');
                 $translations = require $file;
 
-                $flattened = flatten_array($translations, $filename);
+                $flattened = self::flatten_array($translations, $filename);
                 $output = array_merge($output, $flattened);
             }
 
-            file_put_contents(base_path("lang/$locale.json"), json_encode($output, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+            // Sort by key or value
+            $sortBy = config('i18n-exporter.sort_by');
+            if ($sortBy === 'key') {
+                ksort($output);
+            } elseif ($sortBy === 'value') {
+                asort($output);
+            }
 
-            echo "JSON export completed to lang/$locale.json\n";
+            $outputPath = lang_path("$locale.json");
+
+            // Handle existing files
+            if (config('i18n-exporter.force') || !file_exists($outputPath)) {
+                file_put_contents($outputPath, json_encode($output, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+            } else {
+                $this->warn("File $outputPath already exists. Use --force to overwrite.");
+            }
+
+            $this->info("File $outputPath created.");
         }
     }
 
-    private function flatten_array(array $array, string $prefix = ''): array {
+    /**
+     * Flattens a multidimensional array.
+     *
+     * @param  array  $array
+     * @param  string  $prefix
+     * @param string $frameworkType
+     * @return array
+     */
+    private function flatten_array(array $array, string $prefix = '', string $frameworkType = 'vue'): array
+    {
         $result = [];
 
         foreach ($array as $key => $value) {
             $new_key = $prefix . '.' . $key;
             if (is_array($value)) {
-                $result += flatten_array($value, $new_key);
+                $result += self::flatten_array($value, $new_key, $frameworkType);
             } else {
-                $result[$new_key] = $value;
+                $convertedValue = $this->convert_placeholders($value, $frameworkType);
+                $result[$new_key] = $convertedValue;
             }
         }
 
         return $result;
     }
+
+    /**
+     * Convert Laravel Placeholder like :name to Vue/React/Svelte Placeholder like {{ name }}
+     *
+     * @param string $value
+     * @param string $frameworkType
+     * @return string
+     */
+     private function convert_placeholders(string $value, string $frameworkType = 'vue'): string
+     {
+         return match ($frameworkType) {
+             'react', 'svelte' => preg_replace('/:([\w]+)/', '{$1}', $value),
+             default => preg_replace('/:([\w]+)/', '{${1}}', $value),
+         };
+     }
 }

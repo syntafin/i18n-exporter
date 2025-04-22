@@ -16,6 +16,7 @@ class ExportTranslationsCommand extends Command
 
         foreach ($locales as $locale) {
             $path = config('i18n-exporter.path')."/$locale";
+            $this->info("Exporting $locale as JSON from $path");
             $output = [];
 
             $files = glob($path . "/*.php");

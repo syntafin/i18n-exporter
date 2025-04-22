@@ -20,7 +20,7 @@ class i18nExporterServiceProvider extends ServiceProvider
 
             if (config('i18n-exporter.run_on_optimize')) {
                 $this->optimizes(
-                    optimize: 'i18n:export',
+                    optimize: 'i18n:generate',
                     clear: 'i18n:clear',
                 );
             }

@@ -20,7 +20,7 @@ return [
      *
      * options: vue, react, svelte
      */
-    'type' => 'vue',
+    'type' => env('I18N_FRAMEWORK', 'vue'),
 
     /**
      * List of files that should be excluded from export.

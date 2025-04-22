@@ -19,7 +19,7 @@ class ExportTranslationsCommand extends Command
             $this->info("Exporting $locale as JSON from $path");
             $output = [];
 
-            $files = glob($path . "/*.php");
+            $files = glob("$path/*.php");
 
             foreach ($files as $file) {
                 $filename = basename($file, '.php');

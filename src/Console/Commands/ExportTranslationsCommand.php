@@ -36,7 +36,7 @@ class ExportTranslationsCommand extends Command
                 asort($output);
             }
 
-            $outputPath = lang_path("$locale.json");
+            $outputPath = base_path("lang/$locale.json");
 
             // Handle existing files
             if (config('i18n-exporter.force') || !file_exists($outputPath)) {

@@ -14,8 +14,8 @@ class ClearTranslationsCommand extends Command
         $locales = config('i18n-exporter.locales');
 
         foreach ($locales as $locale) {
-            $path = base_path("lang/$locale");
-            $files = glob($path . '/*.php');
+            $path = base_path("lang/");
+            $files = glob("$path/$locale.php");
             foreach ($files as $file) {
                 unlink($file);
             }

@@ -15,7 +15,7 @@ class ClearTranslationsCommand extends Command
 
         foreach ($locales as $locale) {
             $path = base_path("lang/");
-            $files = glob("$path/$locale.php");
+            $files = glob("$path/$locale.json");
             foreach ($files as $file) {
                 unlink($file);
             }

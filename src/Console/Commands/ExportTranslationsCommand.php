@@ -3,6 +3,7 @@
 namespace Syntafin\LaravelI18nExporter\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 
 class ExportTranslationsCommand extends Command
 {
@@ -35,6 +36,10 @@ class ExportTranslationsCommand extends Command
                 ksort($output);
             } elseif ($sortBy === 'value') {
                 asort($output);
+            }
+
+            if (!Storage::exists(config('i18n-exporter.export_path'))) {
+                Storage::makeDirectory(config('i18n-exporter.export_path'));
             }
 
             $outputPath = base_path(config('i18n-exporter.export_path')."/$locale.json");

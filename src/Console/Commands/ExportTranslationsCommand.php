@@ -15,6 +15,10 @@ class ExportTranslationsCommand extends Command
         $locales = config('i18n-exporter.locales');
         $frameworkType = config('i18n-exporter.type');
 
+        if (!is_dir(config('i18n-exporter.export_path'))) {
+            mkdir(config('i18n-exporter.export_path'));
+        }
+
         foreach ($locales as $locale) {
             $path = config('i18n-exporter.path')."/$locale";
             $this->info("Exporting $locale as JSON from $path");
@@ -36,10 +40,6 @@ class ExportTranslationsCommand extends Command
                 ksort($output);
             } elseif ($sortBy === 'value') {
                 asort($output);
-            }
-
-            if (!Storage::exists(config('i18n-exporter.export_path'))) {
-                Storage::makeDirectory(config('i18n-exporter.export_path'));
             }
 
             $outputPath = base_path(config('i18n-exporter.export_path')."/$locale.json");

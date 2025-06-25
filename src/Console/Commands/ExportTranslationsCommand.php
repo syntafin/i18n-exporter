@@ -42,7 +42,7 @@ class ExportTranslationsCommand extends Command
                 asort($output);
             }
 
-            $outputPath = base_path(config('i18n-exporter.export_path')."/$locale.json");
+            $outputPath = config('i18n-exporter.export_path')."/$locale.json";
 
             // Handle existing files
             if (config('i18n-exporter.force') || !file_exists($outputPath)) {

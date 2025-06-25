@@ -9,6 +9,13 @@ return [
     'path' => resource_path('lang'),
 
     /**
+     * Set the path where locales should be exported.
+     *
+     * @var string
+     */
+    'export_path' => env('I18N_EXPORT_PATH', resource_path('lang')),
+
+    /**
      * List of locales that should be exported.
      *
      * @var array

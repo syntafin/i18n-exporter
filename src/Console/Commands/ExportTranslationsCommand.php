@@ -41,7 +41,7 @@ class ExportTranslationsCommand extends Command
 
             // Handle existing files
             if (config('i18n-exporter.force') || !file_exists($outputPath)) {
-                file_put_contents($outputPath, json_encode($output, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                file_put_contents($outputPath, json_encode($output, JSON_UNESCAPED_UNICODE));
             } else {
                 $this->warn("File $outputPath already exists. Use --force to overwrite.");
             }

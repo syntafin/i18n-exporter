@@ -13,7 +13,7 @@ return [
      *
      * @var string
      */
-    'export_path' => env('I18N_EXPORT_PATH', resource_path('lang')),
+    'export_path' => env('I18N_EXPORT_PATH', base_path("lang")),
 
     /**
      * List of locales that should be exported.
